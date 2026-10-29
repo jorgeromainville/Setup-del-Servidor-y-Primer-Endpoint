@@ -4,6 +4,9 @@
 
 import express from 'express';
 import estudiantesRouter from './routes/estudiantes';
+import swaggerUi from 'swagger-ui-express';
+import swaggerOutput from '../swagger_output.json';
+
 
 const app = express();
 const PORT = 3000;
@@ -11,6 +14,7 @@ const PORT = 3000;
 app.use(express.json()); 
 
 app.use('/api/estudiantes', estudiantesRouter);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOutput));
 
 
 // la ia me dijo que esto va mejor abajo por buenas practicas (yo lo puse arriba)

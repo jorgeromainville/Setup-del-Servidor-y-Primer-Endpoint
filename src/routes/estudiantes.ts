@@ -41,8 +41,15 @@ const estudiantes: Estudiante[] = [
     bootcamp: "Full Stack",
   },
 ];
-
+//traer todos los estudiantes
 router.get('/', function (req: Request, res: Response) {
+   /* 
+      #swagger.tags = ['Estudiantes']
+      #swagger.summary = 'Traer todos los estudiantes'
+      #swagger.description = 'Endpoint para obtener todos los estudiantes registrados  }]
+    */
+
+  
   const { bootcamp } = req.query;
 
   // filtrar ?bootcamp=
@@ -67,6 +74,17 @@ router.get('/', function (req: Request, res: Response) {
 
 //buscar por ID
 router.get('/:id', function (req: Request, res: Response) {
+  /* 
+      #swagger.tags = ['Estudiantes']
+      #swagger.summary = 'Traer un estudiante'
+      #swagger.description = 'Endpoint para obtener un estudiante por su ID'
+      #swagger.parameters['id'] = {
+      description: 'ID del estudiante',
+      type: 'string',
+      required: true,
+      example: '12438'}   
+      }]
+    */
   const id = Number(req.params.id);
   const estudiante = estudiantes.find((e) => e.id === id);
 
@@ -83,8 +101,29 @@ router.get('/:id', function (req: Request, res: Response) {
   });
 });
 
-
+//crear un estudiante
 router.post('/', function (req: Request, res: Response) {
+  /* 
+      #swagger.tags = ['Estudiantes']
+      #swagger.summary = 'Crear un Estudiante'
+      #swagger.description = 'Endpoint para crear un Estudiante por su ID'
+      #swagger.parameters['id'] = {
+        description: 'ID del Estudiante',
+        type: 'number',
+        required: true,
+        example: 1
+      }
+      #swagger.parameters['EstudianteCreado'] = {
+        in: 'body',
+        description: 'Campos del Estudiante a crear (ejemplo)',
+        required: true,
+        schema: {
+          nombre: "string",
+          email: "string",
+          bootcamp: "string",
+        }
+      }
+    */
   const { nombre, email, bootcamp } = req.body;
   if (!nombre || !email || !bootcamp || email && nombre && bootcamp !== "string") {
     return res.status(400).json({
@@ -106,8 +145,13 @@ router.post('/', function (req: Request, res: Response) {
   });
 });
 
-
-router.put('/:id', function (req: Request, res: Response) {
+//actualizar un estudiante
+router.put('/:id', function (req: Request, res: Response) {run 
+   /* 
+      #swagger.tags = ['Estudiantes']
+      #swagger.summary = 'Actualizar un Estudiante'
+      #swagger.description = 'Endpoint para actualizar un estudiante por su ID'
+    */
   const id = Number(req.params.id);
   const estudianteActualizado = req.body;
   const index = estudiantes.findIndex((e) => e.id === id);
@@ -125,7 +169,13 @@ router.put('/:id', function (req: Request, res: Response) {
   });
 });
 
+//eliminar estdiante
 router.delete('/:id', function (req: Request, res: Response) {
+      /* 
+      #swagger.tags = ['Estudiantes']
+      #swagger.summary = 'eliminar un Estudiante'
+      #swagger.description = 'Endpoint para eliminar un Estudiante por su ID'
+    */
   const id = Number(req.params.id);
   const index = estudiantes.findIndex((e) => e.id === id);
   if (index === -1) {
