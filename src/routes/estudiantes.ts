@@ -2,14 +2,14 @@ import { Router, type Request, type Response } from 'express';
 
 const router = Router();
 
-interface Estudiante {
+export interface Estudiante {
   id: number;
   nombre: string;
   email: string;
   bootcamp: string;
 }
 
-const estudiantes: Estudiante[] = [
+export const estudiantes: Estudiante[] = [
   {
     id: 1,
     nombre: "Juan",
