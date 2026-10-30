@@ -3,17 +3,25 @@
 //tambien tube que instalar con pnpm tsc --init por que con npx me daba error
 
 import express from 'express';
+import cors from 'cors';
 import estudiantesRouter from './routes/estudiantes';
+import studentsRouter from './routes/students';
 import swaggerUi from 'swagger-ui-express';
 import swaggerOutput from '../swagger_output.json';
 
-
+const PORT = process.env.PORT ?? 3000;
 const app = express();
-const PORT = 3000;
 
+app.use(cors());
 app.use(express.json()); 
 
+// Endpoint raíz requerido por el frontend de prueba de Netlify
+app.get('/', (req, res) => {
+  res.status(200).json({ status: 'ok', message: 'Servidor en línea' });
+});
+
 app.use('/api/estudiantes', estudiantesRouter);
+app.use('/api/students', studentsRouter);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOutput));
 
 
